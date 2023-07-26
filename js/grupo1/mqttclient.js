@@ -7,7 +7,7 @@
 var wsbroker = "0.tcp.sa.ngrok.io";
 
 //var wsport = 8083 // port for above
-var wsport = 13739; // port for above
+var wsport = 14792; // port for above
 var client = new Paho.MQTT.Client(
 	wsbroker,
 	Number(wsport),
