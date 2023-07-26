@@ -4,13 +4,14 @@
 
 //var wsbroker = "192.168.0.3";  //mqtt websocket enabled broker
 //var wsbroker = "localhost";
-var wsbroker = "0.tcp.sa.ngrok.io";
-
+//var wsbroker = "0.tcp.sa.ngrok.io";
+var wsbroker = "broker.hivemq.com";
 //var wsport = 8083 // port for above
-var wsport = 14792; // port for above
+var wsport = 1883; // port for above
+
 var client = new Paho.MQTT.Client(
 	wsbroker,
-	Number(wsport),
+	Number(8000),
 	"myclientid_" + parseInt(Math.random() * 100, 10)
 );
 
@@ -24,25 +25,34 @@ client.onConnectionLost = function (responseObject) {
 
 client.onMessageArrived = function (message) {
 	let destination = message.destinationName;
-	if (destination === "/test_uce_monitor") {
+	if (destination === "merequetengue") {
 		let response = JSON.parse(message.payloadString);
 		dataFormat = response;
 		let dataCPU = dataFormat.CPU;
-		console.log(dataFormat);
-		let dataMemoria = dataFormat.Memoria;
+		let dataMemory = dataFormat.Memory;
 		let dataDisco = dataFormat.Disco;
-		console.log(dataFormat);
-		console.log(parseFloat(dataFormat.value));
+        
+		//console.log(dataFormat);
+		//console.log(parseFloat(dataFormat.value));
+		//Crear datos CPU, Memoria y Almacenamiento 
 
-		//Cargar datos CPU , Memoria y Almacenamiento
 		addData(
 			myChart,
 			parseFloat(dataCPU),
+			
 		);
 
-		addData_memory(
-			myChartMemory,
-			parseFloat(dataMemoria),
+		addData_Memory(
+			Grafica2,
+			parseFloat(dataMemory),
+			
+		);
+		
+
+		addData_Disco(
+			Grafica3,
+			parseFloat(dataDisco),
+			
 		);
 	}
 };
@@ -52,17 +62,13 @@ var options = {
 	onSuccess: function () {
 		console.log("mqtt connected");
 		// Connection succeeded; subscribe to our topic, you can add multile lines of these
-		client.subscribe("/test_uce_monitor", { qos: 1 });
+		client.subscribe("merequetengue", { qos: 1 });
 	},
 	onFailure: function (message) {
 		console.log("Connection failed: " + message.errorMessage);
 	},
 };
 
-
-function testMqtt(){
-	console.log("hi");
-}
-function initMqtt() {
+function init() {
 	client.connect(options);
 }
