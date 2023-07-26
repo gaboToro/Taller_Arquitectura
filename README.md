@@ -14,4 +14,4 @@ This simple project was built with some tools such us:
 $ git clone https://github.com/JuanPa90Cap/Taller_Arquitectura
 ```
 ## Preview project
-<img src="./public/preview.png" alt="Preview project" width="400" />
+<img src="./assets//preview.png" alt="Preview project" width="400" />
