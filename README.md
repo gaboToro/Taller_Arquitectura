@@ -1,4 +1,6 @@
-# Arquitectura de Ordenadores///
+# Arquitectura de Ordenadores
+Grupo 5 validado
+
 
 This simple project was built with some tools such us:
 * Html 5.
