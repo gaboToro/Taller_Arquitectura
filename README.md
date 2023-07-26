@@ -1,4 +1,5 @@
 # Arquitectura de Ordenadores
+# Grupo 2
 
 This simple project was built with some tools such us:
 * Html 5.
