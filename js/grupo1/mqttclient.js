@@ -4,16 +4,25 @@
 
 //var wsbroker = "192.168.0.3";  //mqtt websocket enabled broker
 //var wsbroker = "localhost";
-var wsbroker = "0.tcp.sa.ngrok.io";
+//var wsbroker = "0.tcp.sa.ngrok.io";
 
 //var wsport = 8083 // port for above
-var wsport = 14792; // port for above
+//var wsport = 14792; // port for above
+//var client = new Paho.MQTT.Client(
+	//wsbroker,
+	//Number(wsport),
+	//"myclientid_" + parseInt(Math.random() * 100, 10)
+//);
+var wsbroker = "broker.hivemq.com";
+
+//var wsport = 8083 // port for above
+var wsport = 1883; // port for above
+
 var client = new Paho.MQTT.Client(
 	wsbroker,
-	Number(wsport),
+	Number(8000),
 	"myclientid_" + parseInt(Math.random() * 100, 10)
 );
-
 client.onConnectionLost = function (responseObject) {
 	console.log("connection lost: " + responseObject.errorMessage);
 };
@@ -24,25 +33,23 @@ client.onConnectionLost = function (responseObject) {
 
 client.onMessageArrived = function (message) {
 	let destination = message.destinationName;
-	if (destination === "/test_uce_monitor") {
+	if (destination === "probar1234") {
 		let response = JSON.parse(message.payloadString);
 		dataFormat = response;
-		let dataCPU = dataFormat.CPU;
-		console.log(dataFormat);
-		let dataMemoria = dataFormat.Memoria;
-		let dataDisco = dataFormat.Disco;
-		console.log(dataFormat);
-		console.log(parseFloat(dataFormat.value));
-
-		//Cargar datos CPU , Memoria y Almacenamiento
+		console.log(parseFloat(dataFormat.CPU));
+		console.log(parseFloat(dataFormat.Memoria));
+		console.log(parseFloat(dataFormat.Disco));
 		addData(
-			myChart,
-			parseFloat(dataCPU),
+			myChartCPU,
+			parseFloat(dataFormat.CPU),
 		);
-
-		addData_memory(
+		addData(
 			myChartMemory,
-			parseFloat(dataMemoria),
+			parseFloat(dataFormat.Memoria),
+		);
+		addData(
+			myChartDisck,
+			parseFloat(dataFormat.Disco),
 		);
 	}
 };
