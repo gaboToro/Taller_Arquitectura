@@ -28,11 +28,13 @@ client.onMessageArrived = function (message) {
 		let response = JSON.parse(message.payloadString);
 		dataFormat = response;
 		let dataCPU = dataFormat.CPU;
-		console.log(dataFormat);
 		let dataMemoria = dataFormat.Memoria;
 		let dataDisco = dataFormat.Disco;
-		console.log(dataFormat);
-		console.log(parseFloat(dataFormat.value));
+
+		console.log(dataCPU);
+		console.log(dataDisco);
+		console.log(dataMemoria);
+		//console.log(parseFloat(dataFormat.value));
 
 		//Cargar datos CPU , Memoria y Almacenamiento
 		addData(
@@ -44,6 +46,12 @@ client.onMessageArrived = function (message) {
 			myChartMemory,
 			parseFloat(dataMemoria),
 		);
+		addData_disco(
+			myChartDisco,
+			parseFloat(dataDisco)
+
+		);
+		
 	}
 };
 
