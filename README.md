@@ -1,4 +1,6 @@
 # Arquitectura de Ordenadores
+Grupo 5 validado
+
 
 grupo 1 :)
 
