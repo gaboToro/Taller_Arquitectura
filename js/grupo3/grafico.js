@@ -163,7 +163,7 @@ var ctx = document.getElementById("chart-bars").getContext("2d");
 let labels_n = [];
 let data_n = [];
 let ChartCPU=new Chart(ctx, {
-  type: "bar",
+  type: "line",
   data: {
 	labels: labels_n,
 	datasets: [{

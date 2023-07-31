@@ -4,13 +4,13 @@
 
 //var wsbroker = "192.168.0.3";  //mqtt websocket enabled broker
 //var wsbroker = "localhost";
-var wsbroker = "0.tcp.sa.ngrok.io";
+var wsbroker = "broker.hivemq.com";
 
-//var wsport = 8083 // port for above
-var wsport = 14792; // port for above
+var wsport = 1883 // port for above
+//var wsport = 14792; // port for above
 var client = new Paho.MQTT.Client(
 	wsbroker,
-	Number(wsport),
+	Number(8000),
 	"myclientid_" + parseInt(Math.random() * 100, 10)
 );
 
@@ -24,7 +24,7 @@ client.onConnectionLost = function (responseObject) {
 
 client.onMessageArrived = function (message) {
 	let destination = message.destinationName;
-	if (destination === "/test_uce_monitor") {
+	if (destination === "/test2023") {
 		let response = JSON.parse(message.payloadString);
 		dataFormat = response;
 		let dataCPU = dataFormat.CPU;
@@ -39,18 +39,18 @@ client.onMessageArrived = function (message) {
 		//Cargar datos CPU , Memoria y Almacenamiento
 		addDataCPU(
 			ChartCPU,
-			//parseFloat(dataCPU),
+			parseFloat(dataCPU),
 		);
 
 		addDataRAM(
          ChartRAM,
-		 //parseFloat(dataMemoria)
+		 parseFloat(dataMemoria)
 			
 		)
 
 		addData_disco(
 			ChartDISCO,
-			//parseFloat(dataDisco)
+			parseFloat(dataDisco)
 
 		);
 		
@@ -62,7 +62,7 @@ var options = {
 	onSuccess: function () {
 		console.log("mqtt connected");
 		// Connection succeeded; subscribe to our topic, you can add multile lines of these
-		client.subscribe("/test_uce_monitor", { qos: 1 });
+		client.subscribe("/test2023", { qos: 1 });
 	},
 	onFailure: function (message) {
 		console.log("Connection failed: " + message.errorMessage);
