@@ -36,17 +36,7 @@ let myChartCPU = new Chart(ctx, {
 	},
 });
 
-function addData(chart, dataS) {
 
-	let today = new Date();
-	let date =
-		today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-	// Datos recolectados del sensor
-	chart.data.labels.push(date);
-	chart.data.datasets[0].data.push(dataS);
-	chart.data.datasets[1].data.push(40);
-	chart.update();
-}
 const ctx2 = document.getElementById("myChartMemory").getContext("2d");
 let labels_n_memory = [];
 let data_n_memory = [];
@@ -80,6 +70,7 @@ let myChartMemory= new Chart(ctx2, {
 		},
 	},
 });
+
 const ctx3 = document.getElementById("myChartDisk").getContext("2d");
 let labels_n_disk = [];
 let data_n_disk = [];
@@ -113,3 +104,14 @@ let myChartDisck= new Chart(ctx3, {
 		},
 	},
 });
+function addData(chart, dataS) {
+
+	let today = new Date();
+	let date =
+		today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	// Datos recolectados del sensor
+	chart.data.labels.push(date);
+	chart.data.datasets[0].data.push(dataS);
+	chart.data.datasets[1].data.push(40);
+	chart.update();
+}
