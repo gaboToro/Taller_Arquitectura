@@ -6,6 +6,7 @@
 //var wsbroker = "localhost";
 var wsbroker = "broker.hivemq.com";
 
+
 var wsport = 1883 // port for above
 //var wsport = 14792; // port for above
 var client = new Paho.MQTT.Client(
@@ -48,7 +49,7 @@ client.onMessageArrived = function (message) {
 			
 		)
 
-		addData_disco(
+		addDataDISCO(
 			ChartDISCO,
 			parseFloat(dataDisco)
 
