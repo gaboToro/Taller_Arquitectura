@@ -37,18 +37,20 @@ client.onMessageArrived = function (message) {
 		//console.log(parseFloat(dataFormat.value));
 
 		//Cargar datos CPU , Memoria y Almacenamiento
-		addData(
-			myChart,
-			parseFloat(dataCPU),
+		addDataCPU(
+			ChartCPU,
+			//parseFloat(dataCPU),
 		);
 
-		addData_memory(
-			myChartMemory,
-			parseFloat(dataMemoria),
-		);
+		addDataRAM(
+         ChartRAM,
+		 //parseFloat(dataMemoria)
+			
+		)
+
 		addData_disco(
-			myChartDisco,
-			parseFloat(dataDisco)
+			ChartDISCO,
+			//parseFloat(dataDisco)
 
 		);
 		
