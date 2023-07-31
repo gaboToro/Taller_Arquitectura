@@ -5,7 +5,7 @@ This simple project was built with some tools such us:
 * Html 5.
 * Bootstrap 5.
 * Mqtt.
-* Vanilla Javascript
+* Vanilla Javascript-
 
 ## Steps to run the project:
 
