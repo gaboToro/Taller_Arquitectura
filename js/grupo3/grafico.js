@@ -440,3 +440,21 @@ chart.data.datasets[0].data.push(dataS);
 chart.update();
 }
 
+function updateCPU(valor){
+	const cteRam=document.getElementById("CPU-value");
+	cteRam.textContent=valor ;
+}
+
+function updateRAM(VALOR){
+	const constRam=document.getElementById("RAM-value");
+	constRam.textContent=VALOR
+}
+
+function updateDISCO(VALOR){
+	const constRam=document.getElementById("DISCO-value");
+	constRam.textContent=VALOR
+}
+function updateRED(VALOR){
+	const constRam=document.getElementById("RED-value");
+	constRam.textContent=VALOR
+}

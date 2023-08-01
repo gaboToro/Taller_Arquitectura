@@ -31,7 +31,7 @@ client.onMessageArrived = function (message) {
 		let dataCPU = dataFormat.CPU;
 		let dataMemoria = dataFormat.Memoria;
 		let dataDisco = dataFormat.Disco;
-
+        let dataRed=dataFormat.RED;
 		console.log(dataCPU);
 		console.log(dataDisco);
 		console.log(dataMemoria);
@@ -54,7 +54,10 @@ client.onMessageArrived = function (message) {
 			parseFloat(dataDisco)
 
 		);
-		
+		updateCPU(dataCPU)
+		updateDISCO(dataDisco)
+		updateRAM(dataMemoria)
+		updateRED(dataRed)
 	}
 };
 
