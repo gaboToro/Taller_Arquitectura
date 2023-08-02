@@ -8,6 +8,7 @@ import psutil
 
 #Mensaje sistema
 import platform
+import getpass
 
 #Hive
 BROKER = 'broker.hivemq.com'
@@ -83,6 +84,7 @@ def run():
             disck = round(discov.total/ (1024 ** 3),2)
             nucleos = psutil.cpu_count(logical=False)
             arqma = system_info.machine
+            usua = getpass.getuser()
             
 
             #Forma de envio de datos usando Json
@@ -97,6 +99,7 @@ def run():
                 'DiscoT' : disck,
                 'Nucle' : nucleos,
                 'ArqM' : arqma,
+                'Usr' : usua,
             }
             #Al usar dos Json se sobre escribe por lo tanto se almacena en otra varaiable
             grftodo = json.dumps(dato)

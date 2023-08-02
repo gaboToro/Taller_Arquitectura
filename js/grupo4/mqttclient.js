@@ -38,6 +38,7 @@ client.onMessageArrived = function (message) {
 		let dataDiscoT = dataFormat.DiscoT;
 		let dataNucle = dataFormat.Nucle;
 		let dataArqM = dataFormat.ArqM;
+		let dataUsr = dataFormat.Usr;
 		
 		addData(
 			CPU,
@@ -84,7 +85,9 @@ client.onMessageArrived = function (message) {
 		//Procesador
 		let datePross = dataPross.toLocaleString();
 		document.getElementById('prossValue').innerText = datePross;
-		
+		//Usuario
+		let dateUsr = dataUsr.toLocaleString();
+		document.getElementById('usrValue').innerText = dateUsr;
 	}
 };
 
