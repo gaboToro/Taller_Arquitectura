@@ -35,6 +35,9 @@ client.onMessageArrived = function (message) {
 	  let dataMemoria = dataFormat.memory;
 	  let dataDisco = dataFormat.disk;
 	  let dataTemperatura = dataFormat.temperature;
+	  let dataRAM = dataFormat.ram;
+	  let dataDTotal = dataFormat.dt;
+	  let dataCores = dataFormat.cores;
 	  console.log(dataFormat);
 	  console.log(parseFloat(dataFormat.value));
   
@@ -49,6 +52,9 @@ client.onMessageArrived = function (message) {
 	  document.getElementById("cpuUsageValue").textContent = dataCPU + "%";
 	  document.getElementById("diskUsageValue").textContent = dataDisco + "%";
 	  document.getElementById("temperatureUsageValue").textContent = dataTemperatura + "°C";
+	  document.getElementById("ramTotalValue").textContent = dataRAM + "GB";
+	  document.getElementById("dtTotalValue").textContent = dataDTotal + "GB";
+	  document.getElementById("coresTotalValue").textContent = dataCores + " CPU CORES";
 	}
   };
   
