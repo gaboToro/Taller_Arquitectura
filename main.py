@@ -8,11 +8,13 @@ import random
 import json
 import psutil
 import wmi
+import pynvml
+
 #Hive
 BROKER = 'broker.hivemq.com'
 PORT = 1883
-TOPIC_DATA = "probar1234"
-TOPIC_ALERT = "probar1234"
+TOPIC_DATA = "probar_1"
+TOPIC_ALERT = "probar_1"
 # generate client ID with pub prefix randomly
 CLIENT_ID = "python-mqtt-tcp-pub-sub-{id}".format(id=random.randint(0, 1000))
 FLAG_CONNECTED = 0
@@ -64,18 +66,6 @@ def get_memory_usage():
     memory = psutil.virtual_memory()
     return memory.percent
 
-def get_disk_usage():
-    return psutil.disk_usage('/').percent
-    try:
-        disk = psutil.disk_usage('/')
-        total_disk = disk.total
-        used_disk = disk.used
-        return total_disk, used_disk
-    except Exception as e:
-        print(f"Error: {e}")
-        return None
-
-
 
 def obtener_porcentaje_uso_disco():
     c = wmi.WMI()
@@ -89,8 +79,34 @@ def obtener_porcentaje_uso_disco():
 #    uso_disco = psutil.disk_usage(particion)
 #    return uso_disco.percent
 
-def run():
+def get_highest_utilization_percentage():
+    # Inicializar pynvml
+    pynvml.nvmlInit()
 
+    try:
+        # Obtener el número de dispositivos (GPUs)
+        device_count = pynvml.nvmlDeviceGetCount()
+
+        # Variables para almacenar la utilización máxima
+        highest_utilization = 0
+
+        # Recorrer todos los dispositivos (GPUs)
+        for i in range(device_count):
+            handle = pynvml.nvmlDeviceGetHandleByIndex(i)
+
+            # Obtener la información de utilización del dispositivo actual
+            utilization = pynvml.nvmlDeviceGetUtilizationRates(handle).gpu
+
+            # Actualizar la utilización máxima si es necesario
+            highest_utilization = max(highest_utilization, utilization)
+
+        return highest_utilization
+
+    finally:
+        # Finalizar pynvml
+        pynvml.nvmlShutdown()
+    
+def run():
     client = connect_mqtt()
     while True:
         client.loop_start()
@@ -98,10 +114,10 @@ def run():
             cpu_usage = get_cpu_usage()
             memory_usage = get_memory_usage()
             disk_usage = obtener_porcentaje_uso_disco()
-            tp = {"CPU": cpu_usage, "Memoria": memory_usage, "Disco": disk_usage}
+            gpu = get_highest_utilization_percentage()
+            tp = {"CPU": cpu_usage, "Memoria": memory_usage, "Disco": disk_usage, "GPU": gpu}
             msg=json.dumps(tp)
             publish(client,TOPIC_DATA,msg)
-           
             time.sleep(1)
         else:
             client.loop_stop()
