@@ -3,14 +3,17 @@
 /*################################################################################################*/
 
 //var wsbroker = "192.168.0.3";  //mqtt websocket enabled broker
+var wsbroker = "broker.hivemq.com";
 //var wsbroker = "localhost";
 //var wsbroker = "0.tcp.sa.ngrok.io";
-var wsbroker = "broker.hivemq.com";
-//var wsport = 8083 // port for above
-var wsport = 1883; // port for above
 
+
+var wsport = 1883; // port for above
+//var wsport = 8083 // port for above
+//var wsport = 14792; // port for above
 var client = new Paho.MQTT.Client(
 	wsbroker,
+	//Number(wsport)
 	Number(8000),
 	"myclientid_" + parseInt(Math.random() * 100, 10)
 );
@@ -23,34 +26,54 @@ client.onConnectionLost = function (responseObject) {
 /*####################################### LLEGA EL MENSAJE########################################*/
 /*################################################################################################*/
 
+let primero = 1;
 client.onMessageArrived = function (message) {
 	let destination = message.destinationName;
 	if (destination === "merequetengue") {
 		let response = JSON.parse(message.payloadString);
 		dataFormat = response;
 		let dataCPU = dataFormat.CPU;
+		console.log(dataFormat);
 		let dataMemory = dataFormat.Memory;
 		let dataDisco = dataFormat.Disco;
-        
-		//console.log(dataFormat);
-		//console.log(parseFloat(dataFormat.value));
-		//Crear datos CPU, Memoria y Almacenamiento 
+		let dataVelocidadD = dataFormat.Descarga;
+		let dataVelocidadS = dataFormat.Subida;
+		console.log(dataFormat);
+		console.log(parseFloat(dataFormat.value));
 
+		if (primero == 1){
+			const dataCPUElement = document.getElementById("dataCPUElement");
+			dataCPUElement.textContent = "Valor de CPU: " + dataCPU.toFixed(2);
+
+			const dataMemoryElement = document.getElementById("dataMemoryElement");
+			dataMemoryElement.textContent = "Valor de Memoria: " + dataMemory.toFixed(2);
+
+			const dataDiscoElement = document.getElementById("dataDiscoElement");
+			dataDiscoElement.textContent = "Valor de Disco: " + dataDisco.toFixed(2);
+			
+			const dataVelocidadDercarga = document.getElementById("dataVelocidadDescarga");
+			dataVelocidadDercarga.textContent = "Velocidad de descarga: " + dataVelocidadD.toFixed(2);
+
+			const dataVelocidadSubida = document.getElementById("dataVelocidadSubida");
+			dataVelocidadSubida.textContent = "Velocidad de carga: " + dataVelocidadS.toFixed(2);
+			
+			primero = 0;
+		}
+		//Cargar datos CPU , Memoria y Almacenamiento
 		addData(
-			myChart,
+			chart_bars,
 			parseFloat(dataCPU),
 			
 		);
 
 		addData_Memory(
-			Grafica2,
+			chart_line,
 			parseFloat(dataMemory),
 			
 		);
 		
-
 		addData_Disco(
-			Grafica3,
+			chart_line_tasks,
 			parseFloat(dataDisco),
 			
 		);
@@ -69,6 +92,10 @@ var options = {
 	},
 };
 
-function init() {
+
+function testMqtt(){
+	console.log("hi");
+}
+function initMqtt() {
 	client.connect(options);
 }
