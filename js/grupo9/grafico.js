@@ -21,7 +21,7 @@ function updateDiskValue(value) {
 
 function updateTemperatureValue(value) {
 	const diskSpan = document.getElementById("temperatureValue");
-	diskSpan.textContent = value;
+	diskSpan.textContent = value + " °";
 }
 
 function updateSystemValue(value) {
