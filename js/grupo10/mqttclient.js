@@ -41,24 +41,22 @@ client.onMessageArrived = function (message) {
 		console.log(dataFormat);
 		console.log(parseFloat(dataFormat.value));
 
-		if (primero == 1){
+		
 			const dataCPUElement = document.getElementById("dataCPUElement");
-			dataCPUElement.textContent = "Valor de CPU: " + dataCPU.toFixed(2);
+			dataCPUElement.textContent = "Valor de CPU: " + dataCPU.toFixed(2)+ "%";
 
 			const dataMemoryElement = document.getElementById("dataMemoryElement");
-			dataMemoryElement.textContent = "Valor de Memoria: " + dataMemory.toFixed(2);
+			dataMemoryElement.textContent = "Valor de uso de Memoria: " + dataMemory.toFixed(2) + "%";
 
 			const dataDiscoElement = document.getElementById("dataDiscoElement");
-			dataDiscoElement.textContent = "Valor de Disco: " + dataDisco.toFixed(2);
+			dataDiscoElement.textContent = "Valor Usado de Disco: " + dataDisco.toFixed(2) + " GB";
 			
 			const dataVelocidadDercarga = document.getElementById("dataVelocidadDescarga");
-			dataVelocidadDercarga.textContent = "Velocidad de descarga: " + dataVelocidadD.toFixed(2);
+			dataVelocidadDercarga.textContent = "Bajada: " + dataVelocidadD.toFixed(2) + " MB";
 
 			const dataVelocidadSubida = document.getElementById("dataVelocidadSubida");
-			dataVelocidadSubida.textContent = "Velocidad de carga: " + dataVelocidadS.toFixed(2);
-			
-			primero = 0;
-		}
+			dataVelocidadSubida.textContent = "Subida: " + dataVelocidadS.toFixed(2) + " MB";
+
 		//Cargar datos CPU , Memoria y Almacenamiento
 		addData(
 			chart_bars,
