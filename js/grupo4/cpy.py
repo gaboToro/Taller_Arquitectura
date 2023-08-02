@@ -3,7 +3,7 @@ import random
 import json
 import time
 
-#Mensaje de CPU
+#Mensaje de CPU par actualizar
 import psutil
 
 #Mensaje sistema
