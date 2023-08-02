@@ -1,4 +1,4 @@
-# Arquitectura de Ordenadores // **/Luis
+# Arquitectura de Ordenadores //
 
 This simple project was built with some tools such us:
 * Html 5.
