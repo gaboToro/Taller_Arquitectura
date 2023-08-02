@@ -38,7 +38,8 @@ client.onMessageArrived = function (message) {
 		//console.log(parseFloat(dataFormat.value));
 
 		//Cargar datos CPU , Memoria y Almacenamiento
-		addDataCPU(
+	    		//Cargar datos CPU , Memoria y Almacenamiento
+		/*addDataCPU(
 			ChartCPU,
 			parseFloat(dataCPU),
 		);
@@ -51,13 +52,26 @@ client.onMessageArrived = function (message) {
 
 		addDataDISCO(
 			ChartDISCO,
-			parseFloat(dataDisco)
+			parseFloat(dataDisco.toExponential(2))
 
 		);
 		updateCPU(dataCPU)
 		updateDISCO(dataDisco)
 		updateRAM(dataMemoria)
-		updateRED(dataRed)
+		updateRED(dataRed.toExponential(2))*/
+		if (typeof dataDisco !== "undefined") {
+			// Cargar datos CPU, Memoria y Almacenamiento
+			addDataCPU(ChartCPU, parseFloat(dataCPU));
+			addDataRAM(ChartRAM, parseFloat(dataMemoria));
+			addDataDISCO(ChartDISCO, parseFloat(dataDisco).toExponential(2));
+			updateCPU(dataCPU);
+			updateDISCO(dataDisco.toExponential(2));
+			updateRAM(dataMemoria);
+			updateRED(dataRed.toExponential(2));
+		} else {
+			console.log("dataDisco no está definido o no tiene un valor válido.");
+		}
+        
 	}
 };
 
