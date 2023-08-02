@@ -191,8 +191,8 @@
                 <i class="material-icons opacity-10">weekend</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-                <h4 class="mb-0">$53k</h4>
+                <p class="text-sm mb-0 text-capitalize">RAM USAGE</p>
+                <h4 class="mb-0"><span id="ramUsageValue">...</span></h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -208,8 +208,8 @@
                 <i class="material-icons opacity-10">person</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                <h4 class="mb-0">2,300</h4>
+                <p class="text-sm mb-0 text-capitalize">CPU USAGE</p>
+                <h4 id="cpuUsageValue" class="mb-0">...</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -225,8 +225,8 @@
                 <i class="material-icons opacity-10">person</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">New Clients</p>
-                <h4 class="mb-0">3,462</h4>
+                <p class="text-sm mb-0 text-capitalize">DISK USAGE</p>
+                <h4 id="diskUsageValue" class="mb-0">...</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -242,8 +242,8 @@
                 <i class="material-icons opacity-10">weekend</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Sales</p>
-                <h4 class="mb-0">$103,430</h4>
+                <p class="text-sm mb-0 text-capitalize">CPU TEMPERATURE</p>
+                <h4 id="temperatureUsageValue" class="mb-0">...</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -264,12 +264,12 @@
               </div>
             </div>
             <div class="card-body">
-              <h6 class="mb-0 ">Website Views</h6>
+              <h6 class="mb-0 ">CPU USAGE</h6>
               <p class="text-sm ">Last Campaign Performance</p>
               <hr class="dark horizontal">
               <div class="d-flex ">
                 <i class="material-icons text-sm my-auto me-1">schedule</i>
-                <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
+                <p class="mb-0 text-sm"> just updated </p>
               </div>
             </div>
           </div>
@@ -284,12 +284,12 @@
               </div>
             </div>
             <div class="card-body">
-              <h6 class="mb-0 "> Daily Sales </h6>
+              <h6 class="mb-0 "> DISK USAGE </h6>
               <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales. </p>
               <hr class="dark horizontal">
               <div class="d-flex ">
                 <i class="material-icons text-sm my-auto me-1">schedule</i>
-                <p class="mb-0 text-sm"> updated 4 min ago </p>
+                <p class="mb-0 text-sm"> just updated </p>
               </div>
             </div>
           </div>
@@ -304,7 +304,7 @@
               </div>
             </div>
             <div class="card-body">
-              <h6 class="mb-0 ">Completed Tasks</h6>
+              <h6 class="mb-0 ">RAM USAGE</h6>
               <p class="text-sm ">Last Campaign Performance</p>
               <hr class="dark horizontal">
               <div class="d-flex ">
@@ -670,7 +670,7 @@
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/chartjs.min.js"></script>
   <script>
-    var ctx = document.getElementById("chart-bars").getContext("2d");
+   /* var ctx = document.getElementById("chart-bars").getContext("2d");
 
     new Chart(ctx, {
       type: "bar",
@@ -914,7 +914,7 @@
           },
         },
       },
-    });
+    });*/
   </script>
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
@@ -931,6 +931,7 @@
   <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script>
   <!-- Grafico -->
   <script type="text/javascript" src="../js/grupo12/grafico.js"></script>
+  <script src="js/grupo12/mqttclient.js"></script>
 </body>
 
 </html>
