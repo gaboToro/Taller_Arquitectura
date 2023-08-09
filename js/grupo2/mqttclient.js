@@ -4,13 +4,18 @@
 
 //var wsbroker = "192.168.0.3";  //mqtt websocket enabled broker
 //var wsbroker = "localhost";
-var wsbroker = "0.tcp.sa.ngrok.io";
+//var wsbroker = "0.tcp.sa.ngrok.io";
+var wsbroker = "broker.hivemq.com";
+
 
 //var wsport = 8083 // port for above
-var wsport = 14792; // port for above
+//var wsport = 14792; // port for above
+var wsport = 1883; // port for above
+
 var client = new Paho.MQTT.Client(
 	wsbroker,
-	Number(wsport),
+	Number(8000),
+	//Number(wsport),
 	"myclientid_" + parseInt(Math.random() * 100, 10)
 );
 
@@ -24,26 +29,45 @@ client.onConnectionLost = function (responseObject) {
 
 client.onMessageArrived = function (message) {
 	let destination = message.destinationName;
-	if (destination === "/test_uce_monitor") {
+	if (destination === "gabito") {
 		let response = JSON.parse(message.payloadString);
-		dataFormat = response;
+		let dataFormat = response;
+
 		let dataCPU = dataFormat.CPU;
-		console.log(dataFormat);
-		let dataMemoria = dataFormat.Memoria;
-		let dataDisco = dataFormat.Disco;
-		console.log(dataFormat);
-		console.log(parseFloat(dataFormat.value));
+		let dataMemory = dataFormat.Memory;
+		let dataDisk = dataFormat.Disk;
+		let dataCache = dataFormat.Cache;
+
 
 		//Cargar datos CPU , Memoria y Almacenamiento
 		addData(
-			myChart,
+			myChartCPU,
 			parseFloat(dataCPU),
 		);
 
-		addData_memory(
+		addData(
 			myChartMemory,
-			parseFloat(dataMemoria),
+			parseFloat(dataMemory),
 		);
+
+		addData(
+			myChartDisk,
+			parseFloat(dataDisk),
+		);
+
+		//Envio de valores estáticos.
+		let dateCPU = dataCPU + '%';
+		document.getElementById('cpuValue').innerText = dateCPU;
+
+		let dateMemory = dataMemory.toLocaleString() + ' %';
+		document.getElementById('memoryValue').innerText = dateMemory;
+
+		let dateDisk = dataDisk.toLocaleString() + ' GB';
+		document.getElementById('diskValue').innerText = dateDisk;
+
+		let dateCache = dataCache.toLocaleString() + ' %';
+		document.getElementById('cacheValue').innerText = dateCache;
+
 	}
 };
 
@@ -52,7 +76,7 @@ var options = {
 	onSuccess: function () {
 		console.log("mqtt connected");
 		// Connection succeeded; subscribe to our topic, you can add multile lines of these
-		client.subscribe("/test_uce_monitor", { qos: 1 });
+		client.subscribe("gabito", { qos: 1 });
 	},
 	onFailure: function (message) {
 		console.log("Connection failed: " + message.errorMessage);
