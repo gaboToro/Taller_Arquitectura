@@ -160,6 +160,11 @@
               <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">CPU</p>
                 <h4 class="mb-0" id="cpuValue">0%</h4>
+               <h4 class="mb-0">
+                </h4>
+              
+                  <div id="dataCPUElement"></div>
+                </h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -177,6 +182,15 @@
               <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">Memoria</p>
                 <h4 class="mb-0" id="memoryValue">0%</h4>
+           
+                
+                
+                <h4 class="mb-0">
+                  <div id="dataMemoryElement"></div>
+                
+                
+                
+                </h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -194,6 +208,14 @@
               <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">Disco Duro</p>
                 <h4 class="mb-0" id="diskValue">0GB</h4>
+                <i class="material-icons opacity-10">storage</i>
+              </div>
+              <div class="text-end pt-1">
+              
+                <p class="text-sm mb-0 text-capitalize">Porcentaje Uso Disco Duro</p>
+                <h4 class="mb-0">
+                  <div id="dataDiscoElement"></div>
+                </h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -206,11 +228,14 @@
           <div class="card">
             <div class="card-header p-3 pt-2">
               <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                <i class="material-icons opacity-10">sd_card</i>
+                <i class="material-icons opacity-10">router</i>
+                
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Cache</p>
-                <h4 class="mb-0" id="cacheValue">0%</span></h4>
+                <p class="text-sm mb-0 text-capitalize">Temperatura</p>
+                <h4 class="mb-0">$103,430</h4>
+
+                
               </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -227,6 +252,7 @@
               <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
                 <div class="chart">
                   <canvas id="myChartCPU" class="chart-canvas" height="170"></canvas>
+                  <canvas id="chart_bars" class="chart-canvas" height="170"></canvas>
                 </div>
               </div>
             </div>
@@ -248,6 +274,7 @@
               <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
                 <div class="chart">
                   <canvas id="myChartMemory" class="chart-canvas" height="170"></canvas>
+                  <canvas id="chart_line" class="chart-canvas" height="170"></canvas>
                 </div>
               </div>
             </div>
@@ -269,6 +296,7 @@
               <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
                 <div class="chart">
                   <canvas id="myChartDisk" class="chart-canvas" height="170"></canvas>
+                  <canvas id="chart_line_tasks" class="chart-canvas" height="170"></canvas>
                 </div>
               </div>
             </div>
@@ -590,6 +618,8 @@
   <script src="../assets/js/plugins/chartjs.min.js"></script>
   
 
+ 
+  
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
