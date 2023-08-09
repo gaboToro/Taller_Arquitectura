@@ -26,61 +26,45 @@ client.onConnectionLost = function (responseObject) {
 /*####################################### LLEGA EL MENSAJE########################################*/
 /*################################################################################################*/
 
-
-
 client.onMessageArrived = function (message) {
 	let destination = message.destinationName;
-	if (destination === "prueba2") {
-		let response = JSON.parse(message.payloadString);
-		dataFormat = response;
-		let dataCPU = dataFormat.cpu;
-		let dataMemoria = dataFormat.memory;
-		let dataDisco = dataFormat.disk;
-		let dataTemperature = dataFormat.temperature;
-		let dataSystem = dataFormat.system;
-		let dataTotalMemory = dataFormat.total_memory;
-		let dataTotalStorage = dataFormat.total_storage;
-		console.log(dataFormat);
-		console.log(parseFloat(dataFormat.value));
-
-		//Cargar datos CPU , Memoria y Almacenamiento
-		addData(
-			myChart,
-			parseFloat(dataCPU),
-		);
-
-		addData_memory(
-			myChart2,
-			parseFloat(dataMemoria),
-		);
-
-		addData_almacenamiento(
-			myChart3,
-			parseFloat(dataDisco),
-		);
-		addData_temperature(
-			dataTemperature,
-		);
-		addData_system(
-			dataSystem,
-		);
-		
-		addData_total_memory(
-			parseFloat(dataTotalMemory),
-		);
-		addData_total_storage(
-			parseFloat(dataTotalStorage),
-		);
-		
+	if (destination === "hivetopic") {
+	  let response = JSON.parse(message.payloadString);
+	  dataFormat = response;
+	  let dataCPU = dataFormat.cpu;
+	  let dataMemoria = dataFormat.memory;
+	  let dataDisco = dataFormat.disk;
+	  let dataTemperatura = dataFormat.temperature;
+	  let dataRAM = dataFormat.ram;
+	  let dataDTotal = dataFormat.dt;
+	  let dataCores = dataFormat.cores;
+	  console.log(dataFormat);
+	  console.log(parseFloat(dataFormat.value));
+  
+	  //Cargar datos CPU, Memoria y Almacenamiento
+	  addData(myChart, parseFloat(dataCPU));
+	  addData_disk(myChart2, parseFloat(dataDisco));
+	  addData_memory(myChart3, parseFloat(dataMemoria));
+	  //addData_temperature(myChart4, parseFloat(dataTemperatura));
+  
+	  // Actualizar el valor con id
+	  document.getElementById("ramUsageValue").textContent = dataMemoria + "%";
+	  document.getElementById("cpuUsageValue").textContent = dataCPU + "%";
+	  document.getElementById("diskUsageValue").textContent = dataDisco + "%";
+	  document.getElementById("temperatureUsageValue").textContent = dataTemperatura + "°C";
+	  document.getElementById("ramTotalValue").textContent = dataRAM + "GB";
+	  document.getElementById("dtTotalValue").textContent = dataDTotal + "GB";
+	  document.getElementById("coresTotalValue").textContent = dataCores + " CPU CORES";
 	}
-};
+  };
+  
 
 var options = {
 	timeout: 3,
 	onSuccess: function () {
 		console.log("mqtt connected");
 		// Connection succeeded; subscribe to our topic, you can add multile lines of these
-		client.subscribe("prueba2", { qos: 1 });
+		client.subscribe("hivetopic", { qos: 1 });
 	},
 	onFailure: function (message) {
 		console.log("Connection failed: " + message.errorMessage);
