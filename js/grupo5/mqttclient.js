@@ -4,16 +4,13 @@
 
 var wsbroker = "192.168.0.3";  //mqtt websocket enabled broker
 var wsbroker = "localhost";
-//var wsbroker = "0.tcp.sa.ngrok.io";
 var wsbroker = "broker.hivemq.com";
-var wsport = 8083 // port for above
-//var wsport = 14792; // port for above
+var wsport = 1883; // port for above
 var client = new Paho.MQTT.Client(
 	wsbroker,
-	Number(wsport),
+	Number(8000),
 	"myclientid_" + parseInt(Math.random() * 100, 10)
 );
-
 client.onConnectionLost = function (responseObject) {
 	console.log("connection lost: " + responseObject.errorMessage);
 };
