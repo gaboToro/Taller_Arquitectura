@@ -7,8 +7,8 @@ import time
 from paho.mqtt import client as mqtt_client
 
 import smtplib
-
 import psutil
+import platform
 
 # Local
 # BROKER = 'localhost'
@@ -114,44 +114,75 @@ def get_cache_usage():
     # Obtener el porcentaje de uso del disco duro del PC
     return round(100 - psutil.virtual_memory().available / psutil.virtual_memory().total * 100, 2)
 
+def get_sOperativo_type():
+    system = platform.system()
+    if system == "Windows":
+        return "Windows"
+    elif system == "Linux":
+        return "Linux"
+    elif system == "Darwin":
+        return "macOS"
+    else:
+        return "Desconocido"
+
+def get_architecture():
+    bits = platform.architecture()[0]
+    return bits
+
+
+def get_ram_info():
+    virtual_memory = psutil.virtual_memory()
+    total_ram = virtual_memory.total
+    return total_ram
+
+
+def get_disk_info():
+    partitions = psutil.disk_partitions()
+    return partitions
+
+def get_processor_info():
+    processor = platform.processor()
+    return processor
 
 def run():
     client = connect_mqtt()
-    contador = 1
+    #contador = 1
     while True:
         client.loop_start()
         time.sleep(1)
 
         if FLAG_CONNECTED:
             # print("Wait for message...")
-            #publish(client, TOPIC_DATA, {'valueCPU': get_cpu_usage()})
-            #publish(client, TOPIC_DATA, {'value': get_cpu_memory_usage()})
-            #publish(client, TOPIC_DATA, {'value':get_disk_usage()})
-            #publish(client, TOPIC_DATA, get_temperature())
-            #publish(client, TOPIC_DATA, {'valueCPU': get_cpu_usage()})
+            #publish(client, TOPIC_DATA, {'CPU': get_cpu_usage()})
+            #publish(client, TOPIC_DATA, {'Memory': get_cpu_memory_usage()})
+            #publish(client, TOPIC_DATA, {'Disk': get_disk_usage()})
+            #publish(client, TOPIC_DATA, {'Cache': get_cache_usage()})
 
             dato = {
                 'CPU': get_cpu_usage(),
                 'Memory': get_cpu_memory_usage(),
                 'Disk': get_disk_usage(),
-                'Cache': get_cache_usage()
+                'Cache': get_cache_usage(),
+
+                'sOperativo': get_sOperativo_type(),
+                'Arquitectura': get_architecture(),
+                'Ram': get_ram_info(),
+                'DiskInfo': get_disk_info(),
+                'Processor': get_processor_info(),
             }
 
-            grftodo = json.dumps(dato)
-            publicar = client.publish("gabito", grftodo)
+            fullData = json.dumps(dato)
+            publicar = client.publish("gabito", fullData)
 
-            publish(client, TOPIC_DATA, contador)
-            contador += 1
-            if contador % 10 == 0:
-                publish(client, TOPIC_DATA, "SE HUBIERA MANDADO E-MAIL")
+            #publish(client, TOPIC_DATA, contador)
+            #contador += 1
+            #if contador % 10 == 0:
+            #    publish(client, TOPIC_DATA, "SE HUBIERA MANDADO E-MAIL")
                 #enviar_correo()
-
-            if get_cpu_usage()>40:
-                enviar_correo2()
-
+            #if get_cpu_usage()>40:
+            #    enviar_correo2()
         else:
             client.loop_stop()
-
 
 if __name__ == '__main__':
     run()

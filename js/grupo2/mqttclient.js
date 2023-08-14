@@ -41,12 +41,21 @@ client.onMessageArrived = function (message) {
 		let datasOperativo = dataFormat.sOperativo;
 		let dataArquitectura = dataFormat.Arquitectura;
 		let dataRam = dataFormat.Ram;
+<<<<<<< Updated upstream
         	let dataDiskInfo = dataFormat.DiskInfo;
         	let dataProcessor = dataFormat.Processor;
 
 		//Cargar datos CPU , Memoria y Almacenamiento
 		addData(myChartCPU, parseFloat(dataCPU));
         	addData(myChartMemory, parseFloat(dataMemory));
+=======
+        let dataDiskInfo = dataFormat.DiskInfo;
+        let dataProcessor = dataFormat.Processor;
+
+		//Cargar datos CPU , Memoria y Almacenamiento
+		addData(myChartCPU, parseFloat(dataCPU));
+        addData(myChartMemory, parseFloat(dataMemory));
+>>>>>>> Stashed changes
 		addData(myChartDisk, parseFloat(dataDisk));
 
 		//Envio de valores estáticos.
@@ -66,7 +75,11 @@ client.onMessageArrived = function (message) {
 		let datesOperativo = datasOperativo.toLocaleString();
 		document.getElementById('operativoValue').innerText = datesOperativo;
 
+<<<<<<< Updated upstream
         	let dateArquitectura = dataArquitectura.toLocaleString();
+=======
+        let dateArquitectura = dataArquitectura.toLocaleString();
+>>>>>>> Stashed changes
 		document.getElementById('arquitecturaValue').innerText = dateArquitectura;
 
 		let dateRam = dataRam.toLocaleString();
