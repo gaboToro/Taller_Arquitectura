@@ -19,7 +19,7 @@ $(document).ready(function () {
     	storageBucket: "arquitectura-grupo-2-12e2b.appspot.com",
     	messagingSenderId: "97054327515",
     	appId: "1:97054327515:web:0e64b174892096883302fe",
-    	//measurementId: "G-5TPVHDHHV6"
+    	measurementId: "G-5TPVHDHHV6"
 	};
 	firebase.initializeApp(config); //inicializamos firebase
 	var db = firebase.database();
